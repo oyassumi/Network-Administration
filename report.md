@@ -2,42 +2,42 @@
 
 **Адрес на карте**
 
-![Адрес на карте](screenshot_part1_probe_on_map.png)
+![Адрес на карте](images/screenshot_part1_probe_on_map.png)
 
 **Детализированный адрес** 
 
-![Детализированный адрес](screenshot_part1_ip_address_details.png)
+![Детализированный адрес](images/screenshot_part1_ip_address_details.png)
 
 2. На адрес 201.182.133.234 отправила 5 пакетов размером 800 байтов с интервалом в 2 секунды и отображением времени отправки.
 
 **Скриншот с вызовом команды `ping -c 5 -s 800 -i 2 -D 201.182.133.234`
 
-![Отправка пинга](screenshot_part2_ping.png)
+![Отправка пинга](images/screenshot_part2_ping.png)
 
 3. **Выполнила трассировку до адреса 201.182.133.234, используя mtr. Указала протокол TCP порт 443: `mtr -T -P 443 201.182.133.234`**
 
-![Использование команды mtr](screenshot_part3_mtr.png)
+![Использование команды mtr](images/screenshot_part3_mtr.png)
 
 Сегмент пересечения океана: между хопами Санкт-Петербурга (ae17-238.RT.KM.SPB.retn.ru) и Франкфуртом (ae0-4.rt.eqx.fkt.de.retn.net).
 Регионы транзита: Россия (Санкт-Петербург) → Германия (Франкфурт) → Атлантический океан → Аргентина.
 
-![Вывод MTR](screenshot_part3_mtr_2.png)
+![Вывод MTR](images/screenshot_part3_mtr_2.png)
 
 4. С помощью tcpdump сняла дамп трафика. Отфильтровала пакеты только до этого адреса, чтобы не попадало ничего лишнего.
 
 **Скриншот команды `sudo tcpdump dst host 201.182.133.234`**
 
-![Использование tcpdump](screenshot_part4_tcpdump.png)
+![Использование tcpdump](images/screenshot_part4_tcpdump.png)
 
 5. Для анализа я повторила трассировку с помощью mtr и одновременно захватила трафик в файл task5_dump.pcap, используя tcpdump.
 
 **Скриншот команды `sudo tcpdump host 201.182.133.234 -w task5_dump.pcap`**
 
-![Использование tcpdump с захватом трафика в файл](screenshot_part5_tcpdump.png)
+![Использование tcpdump с захватом трафика в файл](images/screenshot_part5_tcpdump.png)
 
 **Скриншот повтора трассировки mtr -T -P 443 -c 10 201.182.133.234`**
 
-![Повтор трассировки mtr](screenshot_part5_mtr.png)
+![Повтор трассировки mtr](images/screenshot_part5_mtr.png)
 
 Результат анализа:
 - От промежуточных маршрутизаторов приходили ICMP-сообщения **time exceeded**. Например, от адреса `185.70.203.99` (соответствует одному из хопов в трассировке).
